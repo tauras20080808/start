@@ -1,0 +1,22 @@
+version: '3'
+services:
+  app:
+    build: .
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres-container
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres-container:5432/SocialNetworkDB
+      SPRING_DATASOURCE_USERNAME: admin
+      SPRING_DATASOURCE_PASSWORD: admin
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+
+  postgres-container:
+    image: postgres:latest
+    environment:
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: SocialNetworkDB
+      POSTGRES_USER: admin
+    ports:
+      - "5432:5432"
